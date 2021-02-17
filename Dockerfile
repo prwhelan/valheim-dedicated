@@ -19,7 +19,7 @@ ENV SERVER_PORT=2456
 ENV PUBLIC=1
 
 # If you're importing a world, this name must match the filename (the text before the .fwl)
-ENV WORLD_NAME="Some World Name"
+ENV WORLD_NAME="Yggdrasil"
 
 # The save location for the world.  Using an external volume as a means to backup the world
 VOLUME /home/steam/.config/unity3d/IronGate/Valheim
@@ -30,4 +30,4 @@ ENV SteamAppId=892970
 ENV LD_LIBRARY_PATH=${SERVER_DIR}/linux64:${LD_LIBRARY_PATH}
 EXPOSE 2456-2458/udp
 
-ENTRYPOINT ${SERVER_DIR}/valheim_server.x86_64 -nographics -batchmode -name ${SERVER_NAME} -port ${SERVER_PORT} -world ${WORLD_NAME} -password ${SERVER_PASSWORD} -public ${PUBLIC}
+ENTRYPOINT ${SERVER_DIR}/valheim_server.x86_64 -name "${SERVER_NAME}" -port ${SERVER_PORT} -world "${WORLD_NAME}" -password "${SERVER_PASSWORD}" -public ${PUBLIC}
