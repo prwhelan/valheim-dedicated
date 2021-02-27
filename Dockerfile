@@ -30,4 +30,8 @@ ENV SteamAppId=892970
 ENV LD_LIBRARY_PATH=${SERVER_DIR}/linux64:${LD_LIBRARY_PATH}
 EXPOSE 2456-2458/udp
 
-ENTRYPOINT ${SERVER_DIR}/valheim_server.x86_64 -name "${SERVER_NAME}" -port ${SERVER_PORT} -world "${WORLD_NAME}" -password "${SERVER_PASSWORD}" -public ${PUBLIC}
+# Stop with SIGINT will save the current state of the world
+STOPSIGNAL SIGINT
+
+# Run with ENTRYPOINT Exec so the valheim server can catch the SIGINT and handle it
+ENTRYPOINT exec ${SERVER_DIR}/valheim_server.x86_64 -name "${SERVER_NAME}" -port ${SERVER_PORT} -world "${WORLD_NAME}" -password "${SERVER_PASSWORD}" -public ${PUBLIC}
